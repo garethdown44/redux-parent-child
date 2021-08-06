@@ -1,0 +1,14 @@
+FETCH_CLIENTS
+SELECT_CLIENT
+SELECT_BUSINESS_UNIT
+FETCH_CLIENT_USERS
+SAVE_CLIENT_USER
+SAVE_BUSINESS_UNIT_USER
+ACTIVATE_USER
+UNLOCK_USER
+DELETE_USER
+  |> delete-user
+    ?> success
+      |> re-fetch-client-users
+    ?> fail
+      |> show-error-message

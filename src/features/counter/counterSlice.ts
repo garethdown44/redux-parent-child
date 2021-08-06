@@ -53,6 +53,8 @@ export const counterSlice = createSlice({
       .addCase(incrementAsync.pending, (state) => {
         state.status = 'loading';
       })
+      // .addCase(incrementAsync.rejected, (state, action) => {
+      // })
       .addCase(incrementAsync.fulfilled, (state, action) => {
         state.status = 'idle';
         state.value += action.payload;
