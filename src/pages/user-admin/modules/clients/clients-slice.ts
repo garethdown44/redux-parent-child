@@ -1,7 +1,6 @@
 import { call, takeEvery, put, all } from 'redux-saga/effects'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Client } from '../../store/types'
-// import { store } from '../../store/store'
 
 const FETCH_CLIENTS = 'clients/fetchClients'
 const RELOAD_CLIENTS_FAIL = 'clients/reloadClientsFail'
@@ -32,7 +31,7 @@ export const clientsSlice = createSlice({
     },
     reloadClientsSuccess: (state, action: PayloadAction<Client[]>) => {
       state.clients = action.payload
-      // todo: reselect client
+      // todo: any additional logic around re-selection could go here
     }
   }
 })
