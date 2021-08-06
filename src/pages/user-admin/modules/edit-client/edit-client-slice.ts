@@ -1,32 +1,25 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Client } from './clientsSlice';
+import { Client } from '../../store/types'
 
-export interface EditClientState {
+export type EditClientState = {
   status: 'idle' | 'editing'
   client?: Client
+  count: number
   isSaveSuccess: boolean
 }
 
 const initialState: EditClientState = {
   status: 'idle',
+  count: 1,
   isSaveSuccess: false
 }
 
 export const saveClientAsync = createAsyncThunk(
   'editClient/saveClient',
   async () => {
-    return [
-      {
-        id: 1,
-        name: 'Tedson Industries'
-      },
-      {
-        id: 2,
-        name: 'Herbie PLC'
-      }
-    ]
+    return Promise.resolve('success')
   }
-);
+)
 
 export const editClientSlice = createSlice({
   name: 'editClient',
@@ -34,21 +27,23 @@ export const editClientSlice = createSlice({
   reducers: {
     init: (state, action: PayloadAction<Client>) => {
       state.client = action.payload
+      state.count = 0
+      state.isSaveSuccess = false
+    },
+    increment: (state, action: PayloadAction<number>) => {
+      state.count += action.payload
     }
   },
   extraReducers: (builder) => {
     builder
       .addCase(saveClientAsync.pending, (state) => {
       })
-      // .addCase(incrementAsync.rejected, (state, action) => {
-      // })
       .addCase(saveClientAsync.fulfilled, (state, action) => {
-        console.log('ACTION', action)
         state.isSaveSuccess = true
       })
   }
 })
 
-export const { init } = editClientSlice.actions
+export const { init, increment } = editClientSlice.actions
 
 export default editClientSlice.reducer
